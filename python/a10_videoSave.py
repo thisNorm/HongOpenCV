@@ -9,7 +9,7 @@ def put_string(frame, text, pt, value, color=(120, 200, 90)):             # 문�
     cv2.putText(frame, text, pt, font, 0.7, (120, 200, 90), 2)  # 글자 적기
 
 def main():
-    cap = cv2.VideoCapture("/home/aa/hongOpencv/data/vtest.avi")
+    cap = cv2.VideoCapture("data/vtest.avi")
 
     print(f"너비 {cap.get(cv2.CAP_PROP_FRAME_WIDTH)}")
     print(f"높이 {cap.get(cv2.CAP_PROP_FRAME_HEIGHT)}")
@@ -20,7 +20,7 @@ def main():
     fps = cap.get(cv2.CAP_PROP_FPS)
     size = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     fourcc = cv2.VideoWriter_fourcc(*"XVID")
-    writer = cv2.VideoWriter("/home/aa/hongOpencv/data/vtest_output.avi", fourcc, fps, size)
+    writer = cv2.VideoWriter("data/vtest_output.avi", fourcc, fps, size)
     
     if not cap.isOpened():
         print("웹캠을 열 수 없습니다.")

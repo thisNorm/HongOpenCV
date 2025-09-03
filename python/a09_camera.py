@@ -9,7 +9,7 @@ def put_string(frame, text, pt, value, color=(120, 200, 90)):             # 문�
     cv2.putText(frame, text, pt, font, 0.7, (120, 200, 90), 2)  # 글자 적기
 
 def main():
-    cap = cv2.VideoCapture("/home/aa/hongOpencv/data/vtest.avi")
+    cap = cv2.VideoCapture("data/vtest.avi")
 
     print(f"너비 {cap.get(cv2.CAP_PROP_FRAME_WIDTH)}")
     print(f"높이 {cap.get(cv2.CAP_PROP_FRAME_HEIGHT)}")
