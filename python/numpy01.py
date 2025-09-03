@@ -19,7 +19,7 @@ def main():
     print('a 의 크기 : ', a.size)
     print('a 의 데이터 : ', a)
 
-    imgfile = '/root/HongOpenCV/data/lenna.bmp'
+    imgfile = 'data/lenna.bmp'
     img = cv2.imread(imgfile) # numpy 자료형
     print('img 자료형 : ', type(img), type(img[0,0]), img.shape, img.ndim, img.size, img.dtype)
 

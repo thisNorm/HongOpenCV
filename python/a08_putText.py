@@ -24,7 +24,7 @@ def main():
 
     # ft = cv2.freetype.createFreeType2()
     # print(cv2.freetype)
-    # ft.loadFontData("/home/aa/hongOpencv/data/NanumPenScript-Regular.ttf", 0)
+    # ft.loadFontData("data/NanumPenScript-Regular.ttf", 0)
     # ft.putText(image, "한글??", pt2, 30, (0, 0, 0), -1, cv2.LINE_AA)
     # ft.putText(img=image, text="두 번째 한글", org=pt2, fontHeight=30, color=(0, 0, 0),
     #            thickness=-1, line_type=cv2.LINE_AA, bottomLeftOrigin=True)
