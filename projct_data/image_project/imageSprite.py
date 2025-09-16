@@ -3,13 +3,13 @@ import numpy as np
 from sprite import Sprite
 
 
-class ImageSprite2(Sprite):
+class ImageSprite(Sprite):
     """이미지 스프라이트 클래스"""
     def __init__(self, x, y, image_path="data/lenna.bmp", size=(100, 100), active_modes=None):
         super().__init__(x, y)
         self.image_path = image_path
         self.size = size
-        self.active_modes = active_modes or [6]  # 기본값: perspective 모드(6)만 활성
+        self.active_modes = active_modes or [5]  # 기본값: affine 모드(5)만 활성
         self._load_image()
         self.mode = 0
 
@@ -18,18 +18,17 @@ class ImageSprite2(Sprite):
         image = cv2.imread(self.image_path, cv2.IMREAD_COLOR)
         image = cv2.resize(image, self.size)
         self.image = image
-        self.image_points = []  # 이미지의 topleft, topright, bottomleft, bottomright 좌표 저장
+        self.image_points = []  # 이미지의 topleft, topright, bottomleft 좌표 저장
         self.image_points.append((self.x, self.y))  # topleft
         self.image_points.append((self.x + self.size[0], self.y))  # topright
         self.image_points.append((self.x, self.y + self.size[1]))  # bottomleft
-        self.image_points.append((self.x + self.size[0], self.y + self.size[1]))  # bottomright
         self.point_index = 0
         self.change_mode = False
 
     def on_mode_changed(self, new_mode):
         """모드 변경 시 호출되는 콜백"""
         self.mode = new_mode
-        if new_mode == 6:  # perspective 모드
+        if new_mode == 5:  # affine 모드
             self.change_mode = True
 
 
@@ -56,18 +55,13 @@ class ImageSprite2(Sprite):
                 self.image_points[2][1] - 10 <= mouse_y <= self.image_points[2][1] + 10):
             self.point_index = 2
             return True
-        # bottomright
-        if (self.image_points[3][0] - 10 <= mouse_x <= self.image_points[3][0] + 10 and
-                self.image_points[3][1] - 10 <= mouse_y <= self.image_points[3][1] + 10):
-            self.point_index = 3
-            return True
         return False
 
-    def warpPerspective(self, x, y):
+    def warpAffine(self, x, y):
         dst_points =  self.image_points.copy()
         dst_points[self.point_index] = (x, y)
-        M = cv2.getPerspectiveTransform(np.float32(self.image_points), np.float32(dst_points))
-        self.image = cv2.warpPerspective(self.image, M, self.size)
+        M = cv2.getAffineTransform(np.float32(self.image_points), np.float32(dst_points))
+        self.image = cv2.warpAffine(self.image, M, self.size)
         # 좌표 업데이트
         self.image_points = dst_points
         # 이미지에 새로운 좌표에 대한 노란 원 그리기
